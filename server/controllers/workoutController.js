@@ -1,5 +1,5 @@
-import workoutModel from "../models/workoutModel.js";
-import mongoose from "mongoose";
+const workoutModel = require("../models/workoutModel.js");
+const mongoose = require("mongoose");
 
 // get all workouts
 const getWorkouts = async (req, res) => {
@@ -94,4 +94,4 @@ const updateWorkout = async (req, res) => {
   res.status(200).json(workout);
 };
 
-export { createWorkout, getWorkouts, getWorkout, deleteWorkout, updateWorkout };
+module.exports = { createWorkout, getWorkouts, getWorkout, deleteWorkout, updateWorkout };
