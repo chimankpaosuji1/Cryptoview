@@ -8,6 +8,9 @@ const transactionsRoutes = require("./routes/Transactions.js");
 const userPortfolio = require("./routes/userPortfolio.js");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const nftRoutes = require("./routes/nftRoutes.js");
+const transactionRoutes = require("./routes/transactionRoutes.js");
+const ipfsRoutes = require("./routes/ipfsRoutes.js");
 
 dotenv.config();
 
@@ -34,17 +37,22 @@ app.use("/api/workouts/", workoutRoutes);
 app.use("/api/portfolio/", userPortfolio);
 app.use("/api/transactions/", transactionsRoutes);
 app.use("/api/users/", usersRoutes);
+app.use("/api/nft/", nftRoutes);
+app.use("/api/transaction/", transactionRoutes);
+app.use("/api/ipfs/", ipfsRoutes);
 
-//connect to db et lancement du server
-mongoose
-  .connect(process.env.MONG_URI)
-  .then(() => {
-    // listen requests
-    console.log(`connected to db`);
-  })
-  .catch((error) => {
-    // console.log(error);
-  });
+// connect to db et lancement du server
+mongoose.connect(
+ process.env.MONG_URI,
+ 
+);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("Connected to MongoDB");
+});
+
+
 
 app.listen(process.env.PORT, () => {
   console.log(`listening on port ${process.env.PORT}`);
